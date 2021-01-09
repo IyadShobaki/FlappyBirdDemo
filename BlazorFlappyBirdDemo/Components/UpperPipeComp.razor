@@ -1,0 +1,11 @@
+﻿<div class="pipe top" style="@_topPipeCss"></div>
+
+@code {
+
+    [Parameter]
+    public UpperPipe Model { get; set; }
+
+    string _topPipeCss =>
+        $"left: {Model.DistanceFromLeft }px; bottom: {Model.DistanceFromBottom + 430}px";
+
+}

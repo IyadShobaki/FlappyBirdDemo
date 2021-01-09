@@ -3,14 +3,16 @@
 }
 
 .game-container {
-    width: 500px;
+    width: 1100px;
     height: 730px;
     position: absolute;
-    left: 80px;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
 }
 
 .border-left {
-    width: 80px;
+    width: 60px;
     height: 790px;
     position: absolute;
     background-color: white;
@@ -18,8 +20,8 @@
 }
 
 .border-right {
-    left: 580px;
-    width: 80px;
+    left: 1040px;
+    width: 60px;
     height: 790px;
     position: absolute;
     background-color: white;
@@ -27,25 +29,24 @@
 }
 
 .border-top {
-    width: 660px;
+    width: 1100px;
     height: 60px;
     position: absolute;
     background-color: white;
     z-index: +1;
     top: -60px;
-    left: -80px;
 }
 
 .sky {
     background-image: url(../images/fb-game-background.png);
-    width: 500px;
+    width: 1100px;
     height: 580px;
     position: absolute;
 }
 
 .ground {
     background-image: url(../images/bottom-background.png);
-    width: 500px;
+    width: 1100px;
     height: 150px;
     position: absolute;
     top: 580px;
@@ -89,3 +90,4 @@
         right: 0.75rem;
         top: 0.5rem;
     }
+

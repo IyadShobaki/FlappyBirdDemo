@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 
 namespace BlazorFlappyBirdDemo.Models
 {
-    public class PipeModel
+    public abstract class PipeModel
     {
         private readonly int _speed = 2;
-        public int DistanceFromLeft { get; private set; } = 500;
-        public int DistanceFromBottom { get; private set; } = new Random().Next(1, 60);
-        public int GapLower => 300 - 150 + DistanceFromBottom; // pipe height - ground height + pipe distance from bottom
-        public int GapUpper => 430 - 150 + DistanceFromBottom; // pipe gap - ground height + pipe distance from bottom
 
+        public int DistanceFromLeft { get; private set; } = new Random().Next(500, 900);
+        public int DistanceFromBottom { get; private set; } = new Random().Next(1, 60);
+        //public int GapLower => 300 - 150 + DistanceFromBottom; // pipe height - ground height + pipe distance from bottom
+        //public int GapUpper => 430 - 150 + DistanceFromBottom; // pipe gap - ground height + pipe distance from bottom
+        public abstract int Gap { get; }
         public void Move()
         {
             DistanceFromLeft -= _speed;

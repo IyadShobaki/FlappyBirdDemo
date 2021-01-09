@@ -10,6 +10,7 @@ namespace BlazorFlappyBirdDemo.Models
     public class GameManager
     {
         private readonly int _gravity = 2;
+        private int _count = 0;
 
         public event EventHandler MainLoopCompleted;
         public bool IsRunning { get; private set; } = false;
@@ -20,7 +21,7 @@ namespace BlazorFlappyBirdDemo.Models
         {
             ResetGameObjects();
         }
-       
+
         public async void MainLoop()
         {
             IsRunning = true;
@@ -32,9 +33,10 @@ namespace BlazorFlappyBirdDemo.Models
 
                 MainLoopCompleted?.Invoke(this, EventArgs.Empty);
                 await Task.Delay(20);
+
             }
         }
-        
+
         public void Jump()
         {
             if (IsRunning)
@@ -59,21 +61,27 @@ namespace BlazorFlappyBirdDemo.Models
             }
 
             var centeredPipe = GetCenteredPipe();
-            if (centeredPipe != null &&
-                (Bird.DistanceFromGround < centeredPipe.GapLower ||
-                Bird.DistanceFromGround > centeredPipe.GapUpper - 45)) // <-- minus bird height
+            if (centeredPipe != null)
             {
-                GameOver();
+                if ((centeredPipe is LowerPipe && Bird.DistanceFromGround < centeredPipe.Gap) ||
+                    (centeredPipe is UpperPipe && Bird.DistanceFromGround > centeredPipe.Gap - 45))
+                {
+
+                    GameOver();
+                }
             }
+
         }
 
         void ManagePipes()
         {
-            if (!Pipes.Any() || Pipes.Last().DistanceFromLeft <= 250)
+            _count++;
+            if (!Pipes.Any() || _count == 250)//Pipes.Last().DistanceFromLeft <= 250)
             {
                 GeneratePipe();
+                _count = 0;
             }
-            if (Pipes.First().DistanceFromLeft < -60)
+            if (Pipes.First().DistanceFromLeft <= 0)
             {
                 Pipes.Remove(Pipes.First());
             }
@@ -93,7 +101,8 @@ namespace BlazorFlappyBirdDemo.Models
         }
         private void GeneratePipe()
         {
-            Pipes.Add(new PipeModel());
+            Pipes.Add(new LowerPipe());
+            Pipes.Add(new UpperPipe());
         }
 
         private PipeModel GetCenteredPipe()
