@@ -16,6 +16,7 @@ namespace BlazorFlappyBirdDemo.Models
         public bool IsRunning { get; private set; } = false;
         public BirdModel Bird { get; private set; }
         public List<PipeModel> Pipes { get; private set; }
+        public AnimalTypeEnum AnimalType { get; set; }
 
         public GameManager()
         {
@@ -85,6 +86,10 @@ namespace BlazorFlappyBirdDemo.Models
             {
                 Pipes.Remove(Pipes.First());
             }
+            if (Pipes.Skip(1).First().DistanceFromLeft <= 0)
+            {
+                Pipes.Remove(Pipes.Skip(1).First());
+            }
         }
         public void MoveGameObjects()
         {
@@ -114,6 +119,7 @@ namespace BlazorFlappyBirdDemo.Models
         {
             Bird = new BirdModel();
             Pipes = new List<PipeModel>();
+
         }
     }
 }

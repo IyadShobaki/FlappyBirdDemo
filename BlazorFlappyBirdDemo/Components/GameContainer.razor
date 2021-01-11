@@ -4,34 +4,51 @@
 }
 else
 {
-<div class="game-container" tabindex="0"
-     @onclick="_gameManager.StartGame" @onkeyup="HandleKeyUp">
-    <div class="border-top"></div>
-    <div class="sky">
-        <Bird Model="_gameManager.Bird" />
+    <div>
+        <EditForm Model="_gameManager">
+            <InputSelect @bind-Value="_gameManager.AnimalType">
+                @foreach (var value in Enum.GetValues(typeof(AnimalTypeEnum)))
+                 {
+                    <option>@value</option>
+                 }
+            </InputSelect>
+        </EditForm>
     </div>
-    <div class="ground"></div>
+    <div class="game-container" tabindex="0"
+         @onclick="_gameManager.StartGame" @onkeyup="HandleKeyUp">
+        <div class="border-top"></div>
+        <div class="sky">
+            @if (_gameManager.AnimalType == AnimalTypeEnum.Bird)
+            {
+                <Bird Model="_gameManager.Bird" AnimalType="flappy-bird1"/>
+            }
+            else
+            {
+                <Bird Model="_gameManager.Bird" AnimalType="blue-fish"/>
+            }
+        </div>
+        <div class="ground"></div>
 
-    @foreach (var pipe in _gameManager.Pipes)
-    {
-        var p = pipe as LowerPipe;
-        if (p != null)
+        @foreach (var pipe in _gameManager.Pipes)
         {
-            <LowerPipeComp Model="p" />
+            var p = pipe as LowerPipe;
+            if (p != null)
+            {
+                <LowerPipeComp Model="p" />
+            }
         }
-    }
 
-    @foreach (var pipe in _gameManager.Pipes)
-    {
-        var p = pipe as UpperPipe;
-        if (p != null)
+        @foreach (var pipe in _gameManager.Pipes)
         {
-            <UpperPipeComp Model="p" />
+            var p = pipe as UpperPipe;
+            if (p != null)
+            {
+                <UpperPipeComp Model="p" />
+            }
         }
-    }
-    <div class="border-left"></div>
-    <div class="border-right"></div>
-</div>
+        <div class="border-left"></div>
+        <div class="border-right"></div>
+    </div>
 }
 
 @code {

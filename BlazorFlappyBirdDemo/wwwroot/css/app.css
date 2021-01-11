@@ -53,13 +53,13 @@
     z-index: +1;
 }
 
-.bird {
+/*.bird {
     background-image: url(../images/flappy-bird.png);
     width: 60px;
     height: 45px;
     left: 220px;
     position: absolute;
-}
+}*/
 
 .pipe {
     background-image: url(../images/flappybird-pipe.png);
